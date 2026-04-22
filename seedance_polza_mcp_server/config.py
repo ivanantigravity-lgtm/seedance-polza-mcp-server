@@ -19,8 +19,11 @@ class Settings(BaseModel):
 
     @classmethod
     def from_env(cls) -> "Settings":
+        api_key = os.environ.get("POLZA_AI_API_KEY") or os.environ.get("POLZA_API_KEY")
+        if not api_key:
+            raise KeyError("POLZA_AI_API_KEY")
         return cls(
-            polza_api_key=os.environ["POLZA_API_KEY"],
+            polza_api_key=api_key,
             polza_base_url=os.getenv("POLZA_BASE_URL", "https://polza.ai/api/v1").rstrip("/"),
             seedance_model=os.getenv("SEEDANCE_MODEL", "bytedance/seedance-2"),
             poll_interval=int(os.getenv("SEEDANCE_POLL_INTERVAL", "8")),
