@@ -1,0 +1,63 @@
+{
+  "mcpServers": {
+    "seedance-polza-mcp-server": {
+      "command": "uv",
+      "args": [
+        "run",
+        "python",
+        "-m",
+        "seedance_polza_mcp_server.server"
+      ],
+      "cwd": ".",
+      "env": {
+        "POLZA_BASE_URL": "https://polza.ai/api/v1",
+        "SEEDANCE_MODEL": "bytedance/seedance-2",
+        "SEEDANCE_POLL_INTERVAL": "8",
+        "SEEDANCE_MAX_WAIT": "900",
+        "LOG_LEVEL": "INFO"
+      }
+    }
+  },
+  "server": {
+    "name": "seedance-polza-mcp-server",
+    "version": "0.1.0",
+    "description": "Seedance video generation MCP server for Polza.ai",
+    "entrypoint": "seedance_polza_mcp_server.server:create_app",
+    "dependencies": [
+      "fastmcp>=2.11.0",
+      "httpx>=0.28.1",
+      "pydantic>=2.8.2"
+    ],
+    "environment": {
+      "POLZA_API_KEY": {
+        "required": true,
+        "description": "Polza API key"
+      },
+      "POLZA_BASE_URL": {
+        "required": false,
+        "default": "https://polza.ai/api/v1",
+        "description": "Base URL for the Polza API"
+      },
+      "SEEDANCE_MODEL": {
+        "required": false,
+        "default": "bytedance/seedance-2",
+        "description": "Seedance model id"
+      },
+      "SEEDANCE_POLL_INTERVAL": {
+        "required": false,
+        "default": "8",
+        "description": "Default polling interval in seconds"
+      },
+      "SEEDANCE_MAX_WAIT": {
+        "required": false,
+        "default": "900",
+        "description": "Default max wait time in seconds"
+      },
+      "LOG_LEVEL": {
+        "required": false,
+        "default": "INFO",
+        "description": "Logging level"
+      }
+    }
+  }
+}
